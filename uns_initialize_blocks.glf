@@ -16,10 +16,10 @@ pw::Application reset
 pw::Application load "$pwFile"
 
 set blocks [pw::Grid getAll -type pw::Block]
-puts "blocks: $blocks"
+puts "Initializing [llength $blocks] blocks"
 
 foreach block $blocks {
-  puts "Initializing block $block..."
+  puts "Initializing block $block... (named [$block getName])"
   set unsSolver [pw::Application begin UnstructuredSolver $block]
     if [catch { $unsSolver run Initialize } msg] {
       puts "Error initializing $block..."
