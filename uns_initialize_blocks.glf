@@ -19,6 +19,16 @@ set blocks [pw::Grid getAll -type pw::Block]
 puts "Initializing [llength $blocks] blocks"
 
 foreach block $blocks {
+  if { [$block getInteriorState] eq "Initialized" } {
+    puts "Block $block is already initialized... skipping it..."
+    continue
+    }
+
+    if { [$block getType] ne "pw::BlockUnstructured" } {
+      puts "Block $block is not unstructured... skipping it..."
+      continue
+    }
+
   puts "Initializing block $block... (named [$block getName])"
   set unsSolver [pw::Application begin UnstructuredSolver $block]
     if [catch { $unsSolver run Initialize } msg] {
