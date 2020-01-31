@@ -24,10 +24,10 @@ foreach block $blocks {
     continue
     }
 
-    if { [$block getType] ne "pw::BlockUnstructured" } {
-      puts "Block $block is not unstructured... skipping it..."
-      continue
-    }
+  if { [$block getType] ne "pw::BlockUnstructured" } {
+    puts "Block $block is not unstructured... skipping it..."
+    continue
+  }
 
   puts "Initializing block $block... (named [$block getName])"
   set unsSolver [pw::Application begin UnstructuredSolver $block]
