@@ -43,3 +43,5 @@ foreach block $blocks {
 }
 
 pw::Application save $pwFile
+
+# vim: set ft=tcl:
