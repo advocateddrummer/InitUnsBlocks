@@ -16,6 +16,31 @@ pw::Application reset
 pw::Application load "$pwFile"
 
 set blocks [pw::Grid getAll -type pw::Block]
+
+set count 1
+puts "############################################################"
+puts "           Summary of blocks contained in $pwFile           "
+puts "           Block status is indicated as follows:            "
+puts "             a ^ indicates an unstructured block            "
+puts "             a # indicates an structured block              "
+puts "             a @ indicates an extruded block                "
+puts "             a ! is an uninitialized unstructured block     "
+puts "             a * is an initialized unstructured block       "
+puts "############################################################"
+foreach block $blocks {
+  set blockType ""
+  if { [$block getType] eq "pw::BlockUnstructured" } { set blockType "^" }
+  elseif { [$block getType] eq "pw::BlockStructured" } { set blockType "#" }
+  elseif { [$block getType] eq "pw::BlockExtruded" } { set blockType "@" }
+
+  set initialized "!"
+  if { $structured eq "^" && [$block getInteriorState] eq "Initialized" } { set initialized "*" }
+
+  puts "$count: $block (name: [$block getName]) \[$initialized$blockType\]"
+  incr count
+}
+puts "############################################################\n"
+
 puts "Initializing [llength $blocks] blocks"
 
 foreach block $blocks {
