@@ -1,5 +1,3 @@
-# Pointwise V18.3 Journal file - Mon Dec 30 15:15:26 2019
-
 package require PWI_Glyph 3.18.3
 
 puts "Running $argv0 with: [pw::Application getVersion]"
@@ -29,12 +27,16 @@ puts "             a * is an initialized unstructured block       "
 puts "############################################################"
 foreach block $blocks {
   set blockType ""
-  if { [$block getType] eq "pw::BlockUnstructured" } { set blockType "^" }
-  elseif { [$block getType] eq "pw::BlockStructured" } { set blockType "#" }
-  elseif { [$block getType] eq "pw::BlockExtruded" } { set blockType "@" }
+  if { [$block getType] eq "pw::BlockUnstructured" } {
+    set blockType "^"
+  } elseif { [$block getType] eq "pw::BlockStructured" } {
+    set blockType "#"
+  } elseif { [$block getType] eq "pw::BlockExtruded" } {
+    set blockType "@"
+  }
 
   set initialized "!"
-  if { $structured eq "^" && [$block getInteriorState] eq "Initialized" } { set initialized "*" }
+  if { $blockType eq "^" && [$block getInteriorState] eq "Initialized" } { set initialized "*" }
 
   puts "$count: $block (name: [$block getName]) \[$initialized$blockType\]"
   incr count
